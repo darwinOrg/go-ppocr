@@ -9,10 +9,10 @@ import (
 )
 
 type Rect struct {
-	LeftTopX     int `json:"leftTopX"`
-	LeftTopY     int `json:"leftTopY"`
-	RightBottomX int `json:"rightBottomX"`
-	RightBottomY int `json:"rightBottomY"`
+	LeftTopX     float64 `json:"leftTopX"`
+	LeftTopY     float64 `json:"leftTopY"`
+	RightBottomX float64 `json:"rightBottomX"`
+	RightBottomY float64 `json:"rightBottomY"`
 }
 
 type TextRect struct {
@@ -49,10 +49,10 @@ func OcrImageFile(ctx *dgctx.DgContext, sourceImageFile string) ([]*TextRect, er
 					rightBottom := d2[0][2].([]any)
 
 					rect := &Rect{
-						LeftTopX:     int(leftTop[0].(float64)),
-						LeftTopY:     int(leftTop[1].(float64)),
-						RightBottomX: int(rightBottom[0].(float64)),
-						RightBottomY: int(rightBottom[1].(float64)),
+						LeftTopX:     leftTop[0].(float64),
+						LeftTopY:     leftTop[1].(float64),
+						RightBottomX: rightBottom[0].(float64),
+						RightBottomY: rightBottom[1].(float64),
 					}
 
 					text := d2[1][0].(string)
