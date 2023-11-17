@@ -13,6 +13,6 @@ func OcrImageFile(ctx *dgctx.DgContext, sourceImageFile string, destJsonFile str
 		dglogger.Errorf(ctx, "exec python ocr.py error: %v", err)
 		return err
 	}
-	dglogger.Debugf(ctx, "output: %s", string(output))
+	dglogger.Debugf(ctx, "paddleocr output: %s", string(output))
 	return nil
 }
