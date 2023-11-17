@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	dgctx "github.com/darwinOrg/go-common/context"
 	dglogger "github.com/darwinOrg/go-logger"
+	"os"
 	"os/exec"
 )
 
@@ -20,14 +21,18 @@ type TextRect struct {
 }
 
 func OcrImageFile(ctx *dgctx.DgContext, sourceImageFile string) ([]*TextRect, error) {
-	destJsonFile := sourceImageFile + ".ocr"
-	cmd := exec.Command("python", "ocr.py", sourceImageFile, destJsonFile)
+	destOcrFile := sourceImageFile + ".ocr"
+	cmd := exec.Command("python", "ocr.py", sourceImageFile, destOcrFile)
 	output, err := cmd.Output()
 	if err != nil {
 		dglogger.Errorf(ctx, "exec python ocr.py error: %v", err)
 		return nil, err
 	}
+	defer func() {
+		os.Remove(destOcrFile)
+	}()
 	dglogger.Debugf(ctx, "paddleocr output: %s", string(output))
+
 	var d [][][][]any
 	err = json.Unmarshal(output, &d)
 	if err != nil {
