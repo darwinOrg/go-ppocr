@@ -51,13 +51,15 @@ func AnnotateKeywordsForPdf(ctx *dgctx.DgContext, pdfFile string, keywords []str
 
 	for _, tr := range textRects {
 		words := tr.Text
+		lowerWords := strings.ToLower(words)
 		wordsMetric := mw.QueryFontMetrics(dw, words)
 		wordsWidth := wordsMetric.TextWidth
 		leftTopX, leftTopY, rightBottomX, rightBottomY := tr.Rect.LeftTopX, tr.Rect.LeftTopY, tr.Rect.RightBottomX, tr.Rect.RightBottomY
 
 		for _, keyword := range keywords {
-			if strings.Contains(words, keyword) {
-				keywordIndex := strings.Index(words, keyword)
+			lowerKeyword := strings.ToLower(keyword)
+			if strings.Contains(lowerWords, lowerKeyword) {
+				keywordIndex := strings.Index(lowerWords, lowerKeyword)
 				preWords := words[0:keywordIndex]
 
 				var preWordsWidth float64

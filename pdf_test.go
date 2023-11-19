@@ -12,7 +12,7 @@ func TestAnnotateKeywordsForPdf(t *testing.T) {
 	defer imagick.Terminate()
 
 	ctx := &dgctx.DgContext{TraceId: "123"}
-	_, err := dgocr.AnnotateKeywordsForPdf(ctx, "1.pdf", []string{"Java", "MySQL", "15888888888"})
+	_, err := dgocr.AnnotateKeywordsForPdf(ctx, "1.pdf", []string{"Java", "MySQL", "15888888888", "王者荣耀"})
 	if err != nil {
 		return
 	}
