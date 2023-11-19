@@ -8,6 +8,8 @@ require (
 )
 
 require (
+	github.com/darwinOrg/go-imagick v0.0.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	golang.org/x/sys v0.14.0 // indirect
+	gopkg.in/gographics/imagick.v3 v3.5.0 // indirect
 )

@@ -6,6 +6,7 @@ import (
 	dglogger "github.com/darwinOrg/go-logger"
 	"os"
 	"os/exec"
+	"time"
 )
 
 type Rect struct {
@@ -21,6 +22,7 @@ type TextRect struct {
 }
 
 func OcrImageFile(ctx *dgctx.DgContext, sourceImageFile string) ([]*TextRect, error) {
+	start := time.Now().UnixMilli()
 	destOcrFile := sourceImageFile + ".ocr"
 	cmd := exec.Command("python", "ocr.py", sourceImageFile, destOcrFile)
 	output, err := cmd.Output()
@@ -65,6 +67,9 @@ func OcrImageFile(ctx *dgctx.DgContext, sourceImageFile string) ([]*TextRect, er
 			}
 		}
 	}
+
+	cost := time.Now().UnixMilli() - start
+	dglogger.Infof(ctx, "[file: %s] OcrImageFile cost：%d ms", sourceImageFile, cost)
 
 	return textRects, nil
 }
